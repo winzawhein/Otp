@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:puyitha/screen/home_screen.dart';
-import 'package:puyitha/screen/otp.dart';
+import 'package:puyitha/screen/otp_screen.dart';
 
 void main() {
   runApp(const MyApp());

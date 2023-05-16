@@ -11,6 +11,8 @@ class OtpScreen extends StatefulWidget {
 
 class _OtpScreenState extends State<OtpScreen> {
   String decryptedText = '';
+  bool isTrue=false;
+  Color color=Colors.grey;
   TextEditingController pinController = TextEditingController();
   final TextEditingController otp1Controller = TextEditingController();
   final TextEditingController otp2Controller = TextEditingController();
@@ -23,7 +25,7 @@ class _OtpScreenState extends State<OtpScreen> {
   Widget _phoneOTP(
       {required bool first, last, required TextEditingController controller}) {
     return SizedBox(
-      height: 60,
+      height: 70,
       child: AspectRatio(
         aspectRatio: 0.8,
         child: TextField(
@@ -37,7 +39,7 @@ class _OtpScreenState extends State<OtpScreen> {
               FocusScope.of(context).previousFocus();
             }
           },
-          showCursor: false,
+          showCursor: true,
           readOnly: false,
           textAlign: TextAlign.center,
           style: const TextStyle(
@@ -48,10 +50,10 @@ class _OtpScreenState extends State<OtpScreen> {
             contentPadding: const EdgeInsets.only(bottom: 5),
             counter: const Offstage(),
             enabledBorder: OutlineInputBorder(
-                borderSide: const BorderSide(width: 2, color: Colors.black26),
+                borderSide:  BorderSide(width: 2, color: color),
                 borderRadius: BorderRadius.circular(10)),
             focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(width: 2, color: Colors.black12),
+              borderSide:  BorderSide(width: 2, color: color),
               borderRadius: BorderRadius.circular(12),
             ),
           ),
@@ -83,13 +85,7 @@ class _OtpScreenState extends State<OtpScreen> {
       });
 
       // Show the SnackBar with the decrypted OTP codes
-      
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(content: Text(decryptedText),
-      //   behavior: SnackBarBehavior.floating
-      //   ,
-      //   ),
-      // );
+     
        Get.snackbar(
               'Code',
               decryptedText,
@@ -104,6 +100,14 @@ class _OtpScreenState extends State<OtpScreen> {
       showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
+          var otp=otp1Controller.text+otp2Controller.text+otp3Controller.text+otp4Controller.text+otp5Controller.text+otp6Controller.text;
+          if(otp==decryptedText){
+            print("true");
+            setState(() {
+              color=Colors.green;
+              // print("color=> $color");
+            });
+          }
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: 5),
             child: Column(
@@ -130,8 +134,13 @@ class _OtpScreenState extends State<OtpScreen> {
                 SizedBox(height: 10,),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 40),
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.blueGrey,
+                    borderRadius: BorderRadius.all(Radius.circular(15))
+                  ),
                   width: Get.width,
-                  color: Colors.blueGrey,
+                  
                   child:  Center(child: Text('အတည်ပြုမည်။')),
                 ),
             ],),
